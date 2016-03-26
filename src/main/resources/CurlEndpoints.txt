@@ -1,0 +1,101 @@
+#Create User
+curl -H "Content-Type: application/json" -X POST -d '{"username":"BernieSanders","password":"xyz","repassword":"xyz"}' http://localhost:3000/user/create
+{
+  "idUser": 2,
+  "username": "berniesanders",
+  "apiKey": "5ad27780-f328-11e5-9baf-d42c5e528295"
+}
+
+#Login User
+curl -H "Content-Type: application/json" -X POST -d '{"username":"BernieSanders","password":"xyz"}' http://localhost:3000/user/login
+{
+  "idUser": 2,
+  "username": "berniesanders",
+  "apiKey": "5ad27780-f328-11e5-9baf-d42c5e528295"
+}
+
+#Create Feature
+curl -H "Content-Type: application/json" -X POST -d '{"idUser":2,"apiKey":"5ad27780-f328-11e5-9baf-d42c5e528295","title":"Feature Idea","idea":"Download a Car"}' http://localhost:3000/feature/create
+{
+  "idFeature": 19,
+  "title": "Feature Idea",
+  "idea": "Download a Car"
+}
+
+#Edit Feature
+curl -H "Content-Type: application/json" -X POST -d '{"idUser":2,"apiKey":"5ad27780-f328-11e5-9baf-d42c5e528295","idFeature":19,"title":"Car Download Feature 2","idea":"Download a Car from your computer"}' http://localhost:3000/feature/edit
+{
+  "response": "Feature 19 was updated."
+}
+
+#Delete Feature
+curl -H "Content-Type: application/json" -X POST -d '{"idUser":2,"apiKey":"5ad27780-f328-11e5-9baf-d42c5e528295","idFeature":19}' http://localhost:3000/feature/delete
+{
+  "response": "Feature 19 was deleted."
+}
+
+#Get Features
+curl http://localhost:3000/feature?id_feature=21
+[{
+  "user": {
+    "idUser": 2,
+    "username": "berniesanders"
+  },
+  "idFeature": 21,
+  "title": "Animal Feature",
+  "idea": "We include a turtle smoking a cigarrette"
+}]
+
+curl http://localhost:3000/feature?limit=3
+[{
+  "user": {
+    "idUser": 2,
+    "username": "berniesanders"
+  },
+  "idFeature": 21,
+  "title": "Animal Feature",
+  "idea": "We include a turtle smoking a cigarrette"
+}, {
+  "user": {
+    "idUser": 2,
+    "username": "berniesanders"
+  },
+  "idFeature": 20,
+  "title": "Car Download Feature",
+  "idea": "Download a Car from your computer"
+}, {
+  "user": {
+    "idUser": 1,
+    "username": "sroth"
+  },
+  "idFeature": 18,
+  "title": "18",
+  "idea": "Idea!!!"
+}]
+
+curl "http://localhost:3000/feature?limit=3&skip=3"
+[{
+  "user": {
+    "idUser": 1,
+    "username": "sroth"
+  },
+  "idFeature": 17,
+  "title": "17",
+  "idea": "Idea!!!"
+}, {
+  "user": {
+    "idUser": 1,
+    "username": "sroth"
+  },
+  "idFeature": 16,
+  "title": "16",
+  "idea": "Idea!!!"
+}, {
+  "user": {
+    "idUser": 1,
+    "username": "sroth"
+  },
+  "idFeature": 15,
+  "title": "15",
+  "idea": "Idea!!!"
+}]
