@@ -100,4 +100,32 @@ object Execute {
     else
       throw new CosmicFeatureTurtleException
   }
+
+  def createComment(createCommentRequest: CreateCommentRequest): CreateCommentResponse = {
+    validateCredentialRequest(createCommentRequest)
+    val result = Queries.createComment(createCommentRequest).update.apply
+    if(result == 1) {
+      val comments = Queries.retrieveCreatedComment(createCommentRequest).map(_.toCreateCommentResponse).list.apply
+      if(comments.nonEmpty) comments.head else throw new CosmicFeatureTurtleException
+    } else
+      throw new CosmicFeatureTurtleException
+  }
+
+  def deleteComment(deleteCommentRequest: DeleteCommentRequest): DeleteCommentResponse = {
+    validateCredentialRequest(deleteCommentRequest)
+    val result = Queries.deleteComment(deleteCommentRequest).update.apply
+    if(result == 1)
+      DeleteCommentResponse(s"Comment ${deleteCommentRequest.idComment} was deleted.")
+    else
+      throw new CosmicFeatureTurtleException
+  }
+
+  def editComment(editCommentRequest: EditCommentRequest): EditCommentResponse = {
+    validateCredentialRequest(editCommentRequest)
+    val result = Queries.editComment(editCommentRequest).update.apply
+    if(result == 1)
+      EditCommentResponse(s"Comment ${editCommentRequest.idComment} was updated.")
+    else
+      throw new CosmicFeatureTurtleException
+  }
 }

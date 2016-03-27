@@ -89,4 +89,28 @@ object Access {
       case e: Exception => ErrorMessage(e.getMessage)
     }
   }
+
+  def createComment(createCommentRequest: CreateCommentRequest): ToResponseMarshallable = {
+    try {
+      Execute.createComment(createCommentRequest)
+    } catch {
+      case e: Exception => ErrorMessage(e.getMessage)
+    }
+  }
+
+  def deleteComment(deleteCommentRequest: DeleteCommentRequest): ToResponseMarshallable = {
+    try {
+      Execute.deleteComment(deleteCommentRequest)
+    } catch {
+      case e: Exception => ErrorMessage(e.getMessage)
+    }
+  }
+
+  def editComment(editCommentRequest: EditCommentRequest): ToResponseMarshallable = {
+    try {
+      Execute.editComment(editCommentRequest)
+    } catch {
+      case e: Exception => ErrorMessage(e.getMessage)
+    }
+  }
 }

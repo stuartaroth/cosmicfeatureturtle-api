@@ -140,7 +140,7 @@ object Queries {
         user.name,
         comment.id_feature,
         comment.id_comment,
-        comment.response
+        comment.body
       from comment
       join user on comment.id_user = user.id_user
       where comment.id_feature = $idFeature"""
@@ -179,7 +179,8 @@ object Queries {
   def deleteVote(deleteVoteRequest: DeleteVoteRequest) = {
     sql"""
       delete from vote
-      where id_vote = ${deleteVoteRequest.idVote}"""
+      where id_user = ${deleteVoteRequest.idUser}
+        and id_vote = ${deleteVoteRequest.idVote}"""
   }
 
   def editVote(editVoteRequest: EditVoteRequest) = {
@@ -187,5 +188,39 @@ object Queries {
       update vote set
         upvote = ${editVoteRequest.upvote}
       where id_vote = ${editVoteRequest.idVote}"""
+  }
+
+  def createComment(createCommentRequest: CreateCommentRequest) = {
+    sql"""
+      insert into comment
+        (id_user, id_feature, body)
+      values
+        (${createCommentRequest.idUser}, ${createCommentRequest.idFeature}, ${createCommentRequest.body})"""
+  }
+
+  def retrieveCreatedComment(createCommentRequest: CreateCommentRequest) = {
+    sql"""
+      select
+        id_comment,
+        body
+      from comment
+      where id_user = ${createCommentRequest.idUser}
+        and id_feature = ${createCommentRequest.idFeature}
+        and body = ${createCommentRequest.body}"""
+  }
+
+  def deleteComment(deleteCommentRequest: DeleteCommentRequest) = {
+    sql"""
+      delete from comment
+      where id_user = ${deleteCommentRequest.idUser}
+        and id_comment = ${deleteCommentRequest.idComment}"""
+  }
+
+  def editComment(editCommentRequest: EditCommentRequest) = {
+    sql"""
+      update comment set
+        body = ${editCommentRequest.body}
+      where id_user = ${editCommentRequest.idUser}
+        and id_comment = ${editCommentRequest.idComment}"""
   }
 }

@@ -28,7 +28,7 @@ object DBResultExtensions {
       FeatureComment(
         User(rs.int("id_user"), rs.string("name")),
         rs.int("id_comment"),
-        rs.string("response")
+        rs.string("body")
       )
     }
 
@@ -52,5 +52,7 @@ object DBResultExtensions {
     }
 
     def toCreateVoteResponse = CreateVoteResponse(rs.int("id_vote"))
+
+    def toCreateCommentResponse = CreateCommentResponse(rs.int("id_comment"), rs.string("body"))
   }
 }

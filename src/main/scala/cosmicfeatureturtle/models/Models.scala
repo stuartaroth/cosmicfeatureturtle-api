@@ -9,7 +9,7 @@ object Models {
   case class User(idUser: Int, username: String)
   case class FeatureSummary(user: User, idFeature: Int, title: String, idea: String, commentCount: Int, upvoteCount: Int, downvoteCount: Int)
 
-  case class FeatureComment(user: User, idComment: Int, response: String)
+  case class FeatureComment(user: User, idComment: Int, body: String)
   case class FeatureVote(user: User, idVote: Int, upvote: Boolean)
   case class Feature(user: User, idFeature: Int, title: String, idea: String, comments: List[FeatureComment], votes: List[FeatureVote])
 
@@ -31,4 +31,10 @@ object Models {
   case class DeleteVoteResponse(response: String)
   case class EditVoteRequest(idUser: Int, apiKey: String, idVote: Int, upvote: Boolean) extends CredentialRequest
   case class EditVoteResponse(response: String)
+  case class CreateCommentRequest(idUser: Int, apiKey: String, idFeature: Int, body: String) extends CredentialRequest
+  case class CreateCommentResponse(idComment: Int, body: String)
+  case class EditCommentRequest(idUser: Int, apiKey: String, idComment: Int, body: String) extends CredentialRequest
+  case class EditCommentResponse(response: String)
+  case class DeleteCommentRequest(idUser: Int, apiKey: String, idComment: Int) extends CredentialRequest
+  case class DeleteCommentResponse(response: String)
 }

@@ -20,13 +20,13 @@ trait MyService extends HttpService {
       pathPrefix("") {
         pathEndOrSingleSlash {
           get {
-            complete("root")
+            complete("")
           }
         }
       } ~ pathPrefix("user") {
         pathEndOrSingleSlash {
           post {
-            complete("user")
+            complete("")
           }
         } ~ pathPrefix("create") {
           pathEndOrSingleSlash {
@@ -86,7 +86,7 @@ trait MyService extends HttpService {
       } ~ pathPrefix("vote") {
         pathEndOrSingleSlash {
           post {
-            complete("VOTE")
+            complete("")
           }
         }  ~ pathPrefix("create") {
           pathEndOrSingleSlash {
@@ -109,6 +109,36 @@ trait MyService extends HttpService {
             post {
               entity(as[EditVoteRequest]) { editVoteRequest =>
                 complete(Access.editVote(editVoteRequest))
+              }
+            }
+          }
+        }
+      } ~ pathPrefix("comment") {
+        pathEndOrSingleSlash {
+          post {
+            complete("")
+          }
+        }  ~ pathPrefix("create") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[CreateCommentRequest]) { createCommentRequest =>
+                complete(Access.createComment(createCommentRequest))
+              }
+            }
+          }
+        } ~ pathPrefix("delete") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[DeleteCommentRequest]) { deleteCommentRequest =>
+                complete(Access.deleteComment(deleteCommentRequest))
+              }
+            }
+          }
+        } ~ pathPrefix("edit") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[EditCommentRequest]) { editCommentRequest =>
+                complete(Access.editComment(editCommentRequest))
               }
             }
           }
