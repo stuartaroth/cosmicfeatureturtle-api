@@ -7,7 +7,7 @@ object Models {
   }
 
   case class User(idUser: Int, username: String)
-  case class FeatureSummary(user: User, idFeature: Int, title: String, idea: String, commentCount: Int, upvoteCount: Int, downvoteCount: Int)
+  case class FeatureSummary(user: User, idFeature: Int, title: String, idea: String, commentCount: Option[Int], upvoteCount: Option[Int], downvoteCount: Option[Int])
 
   case class FeatureComment(user: User, idComment: Int, body: String)
   case class FeatureVote(user: User, idVote: Int, upvote: Boolean)

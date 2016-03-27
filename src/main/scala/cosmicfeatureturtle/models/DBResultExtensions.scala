@@ -21,9 +21,9 @@ object DBResultExtensions {
         rs.int("id_feature"),
         rs.string("title"),
         rs.string("idea"),
-        rs.int("comment_count"),
-        rs.int("upvote_count"),
-        rs.int("downvote_count"))
+        rs.intOpt("comment_count"),
+        rs.intOpt("upvote_count"),
+        rs.intOpt("downvote_count"))
     }
 
     def toFeatureComment = {

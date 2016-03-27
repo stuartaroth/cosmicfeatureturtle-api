@@ -110,6 +110,8 @@ object Queries {
         feature.id_feature,
         feature.title,
         feature.idea,
+        feature.date_created,
+        feature.date_edited,
         comment.comment_count,
         vote.upvote_count,
         vote.downvote_count
@@ -145,7 +147,9 @@ object Queries {
         user.name,
         feature.id_feature,
         feature.title,
-        feature.idea
+        feature.idea,
+        feature.date_created,
+        feature.date_edited
       from feature
       join user on feature.id_user = user.id_user
       where id_feature = $idFeature"""
@@ -158,7 +162,9 @@ object Queries {
         user.name,
         comment.id_feature,
         comment.id_comment,
-        comment.body
+        comment.body,
+        comment.date_created,
+        comment.date_edited
       from comment
       join user on comment.id_user = user.id_user
       where comment.id_feature = $idFeature"""
@@ -237,7 +243,8 @@ object Queries {
   def editComment(editCommentRequest: EditCommentRequest) = {
     sql"""
       update comment set
-        body = ${editCommentRequest.body}
+        body = ${editCommentRequest.body},
+        date_edited = now()
       where id_user = ${editCommentRequest.idUser}
         and id_comment = ${editCommentRequest.idComment}"""
   }

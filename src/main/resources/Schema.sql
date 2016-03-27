@@ -39,6 +39,8 @@ create table comment(
   id_user int not null,
   id_feature int not null,
   body varchar(510) not null,
+  date_created datetime not null default now(),
+  date_edited datetime not null default now(),
   primary key (id_comment),
   foreign key (id_feature) references feature (id_feature),
   foreign key (id_user) references user (id_user),
