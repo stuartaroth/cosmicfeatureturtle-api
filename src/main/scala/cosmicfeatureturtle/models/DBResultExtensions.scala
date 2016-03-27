@@ -21,6 +21,8 @@ object DBResultExtensions {
         rs.int("id_feature"),
         rs.string("title"),
         rs.string("idea"),
+        rs.jodaDateTime("date_created"),
+        rs.jodaDateTime("date_edited"),
         rs.intOpt("comment_count"),
         rs.intOpt("upvote_count"),
         rs.intOpt("downvote_count"))
@@ -30,7 +32,9 @@ object DBResultExtensions {
       FeatureComment(
         User(rs.int("id_user"), rs.string("name")),
         rs.int("id_comment"),
-        rs.string("body")
+        rs.string("body"),
+        rs.jodaDateTime("date_created"),
+        rs.jodaDateTime("date_edited")
       )
     }
 
@@ -48,6 +52,8 @@ object DBResultExtensions {
         rs.int("id_feature"),
         rs.string("title"),
         rs.string("idea"),
+        rs.jodaDateTime("date_created"),
+        rs.jodaDateTime("date_edited"),
         comments,
         votes
       )

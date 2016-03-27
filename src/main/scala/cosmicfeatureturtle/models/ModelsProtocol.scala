@@ -1,14 +1,28 @@
 package cosmicfeatureturtle.models
 
 import cosmicfeatureturtle.models.Models._
+import org.joda.time.DateTime
+import org.joda.time.format.{ISODateTimeFormat, DateTimeFormat}
 import spray.json._
 
 object ModelsProtocol extends DefaultJsonProtocol {
+  implicit object DateTimeFormat extends RootJsonFormat[DateTime] {
+    val formatter = ISODateTimeFormat.dateTimeNoMillis
+
+    def write(dateTime: DateTime): JsValue = {
+      JsString(formatter.print(dateTime))
+    }
+
+    def read(json: JsValue): DateTime = {
+      ???
+    }
+  }
+
   implicit val userFormat = jsonFormat2(User)
-  implicit val featureSummaryFormat = jsonFormat7(FeatureSummary)
-  implicit val featureCommentFormat = jsonFormat3(FeatureComment)
+  implicit val featureSummaryFormat = jsonFormat9(FeatureSummary)
+  implicit val featureCommentFormat = jsonFormat5(FeatureComment)
   implicit val featureVoteFormat = jsonFormat3(FeatureVote)
-  implicit val featureFormat = jsonFormat6(Feature)
+  implicit val featureFormat = jsonFormat8(Feature)
   implicit val errorMessageFormat = jsonFormat1(ErrorMessage)
   implicit val createUserFormat = jsonFormat3(CreateUserRequest)
   implicit val createUserResponseFormat = jsonFormat3(CreateUserResponse)

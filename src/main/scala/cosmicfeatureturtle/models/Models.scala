@@ -1,5 +1,7 @@
 package cosmicfeatureturtle.models
 
+import org.joda.time.DateTime
+
 object Models {
   trait CredentialRequest {
     val idUser: Int
@@ -7,11 +9,11 @@ object Models {
   }
 
   case class User(idUser: Int, username: String)
-  case class FeatureSummary(user: User, idFeature: Int, title: String, idea: String, commentCount: Option[Int], upvoteCount: Option[Int], downvoteCount: Option[Int])
+  case class FeatureSummary(user: User, idFeature: Int, title: String, idea: String, dateCreated: DateTime, dateEdited: DateTime, commentCount: Option[Int], upvoteCount: Option[Int], downvoteCount: Option[Int])
 
-  case class FeatureComment(user: User, idComment: Int, body: String)
+  case class FeatureComment(user: User, idComment: Int, body: String, dateCreated: DateTime, dateEdited: DateTime)
   case class FeatureVote(user: User, idVote: Int, upvote: Boolean)
-  case class Feature(user: User, idFeature: Int, title: String, idea: String, comments: List[FeatureComment], votes: List[FeatureVote])
+  case class Feature(user: User, idFeature: Int, title: String, idea: String, dateCreated: DateTime, dateEdited: DateTime, comments: List[FeatureComment], votes: List[FeatureVote])
 
   case class FeatureForDeletion(idUser: Int, idFeature: Int)
 
