@@ -3,8 +3,8 @@ package cosmicfeatureturtle.models
 import scalikejdbc.WrappedResultSet
 import cosmicfeatureturtle.models.Models._
 
-object ResultImplicits {
-  implicit class ResultImplicits(val rs: WrappedResultSet) extends AnyVal {
+object DBResultExtensions {
+  implicit class DBResultExtensions(val rs: WrappedResultSet) extends AnyVal {
     def toCreateUserResponse = CreateUserResponse(rs.int("id_user"), rs.string("name"), rs.string("api_key"))
 
     def toLoginUserResponse = LoginUserResponse(rs.int("id_user"), rs.string("name"), rs.string("api_key"))
@@ -50,5 +50,7 @@ object ResultImplicits {
         votes
       )
     }
+
+    def toCreateVoteResponse = CreateVoteResponse(rs.int("id_vote"))
   }
 }

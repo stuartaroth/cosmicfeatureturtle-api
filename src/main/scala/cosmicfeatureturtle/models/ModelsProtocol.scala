@@ -20,4 +20,10 @@ object ModelsProtocol extends DefaultJsonProtocol {
   implicit val deleteFeatureResponseFormat = jsonFormat1(DeleteFeatureResponse)
   implicit val editFeatureRequestFormat = jsonFormat5(EditFeatureRequest)
   implicit val editFeatureResponseFormat = jsonFormat1(EditFeatureResponse)
+  implicit val createVoteRequestFormat = jsonFormat4(CreateVoteRequest)
+  implicit val createVoteResponseFormat = jsonFormat1(CreateVoteResponse)
+  implicit val editVoteRequestFormat = jsonFormat4(EditVoteRequest)
+  implicit val editVoteResponseFormat = jsonFormat1(EditVoteResponse)
+  implicit val deleteVoteRequestFormat = jsonFormat3(DeleteVoteRequest)
+  implicit val deleteVoteResponseFormat = jsonFormat1(DeleteVoteResponse)
 }

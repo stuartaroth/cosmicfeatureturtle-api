@@ -158,4 +158,34 @@ object Queries {
       join user on vote.id_user = user.id_user
       where vote.id_feature = $idFeature"""
   }
+
+  def createVote(createVoteRequest: CreateVoteRequest) = {
+    sql"""
+      insert into vote
+        (id_user, id_feature, upvote)
+      values
+        (${createVoteRequest.idUser}, ${createVoteRequest.idFeature}, ${createVoteRequest.upvote})"""
+  }
+
+  def retrieveCreatedVote(createVoteRequest: CreateVoteRequest) = {
+    sql"""
+      select
+        id_vote
+      from vote
+      where id_user = ${createVoteRequest.idUser}
+        and id_feature = ${createVoteRequest.idFeature}"""
+  }
+
+  def deleteVote(deleteVoteRequest: DeleteVoteRequest) = {
+    sql"""
+      delete from vote
+      where id_vote = ${deleteVoteRequest.idVote}"""
+  }
+
+  def editVote(editVoteRequest: EditVoteRequest) = {
+    sql"""
+      update vote set
+        upvote = ${editVoteRequest.upvote}
+      where id_vote = ${editVoteRequest.idVote}"""
+  }
 }

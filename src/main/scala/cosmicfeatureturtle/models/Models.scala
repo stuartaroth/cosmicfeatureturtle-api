@@ -25,4 +25,10 @@ object Models {
   case class DeleteFeatureResponse(response: String)
   case class EditFeatureRequest(idUser: Int, apiKey: String, idFeature: Int, title: String, idea: String) extends CredentialRequest
   case class EditFeatureResponse(response: String)
+  case class CreateVoteRequest(idUser: Int, apiKey: String, idFeature: Int, upvote: Boolean) extends CredentialRequest
+  case class CreateVoteResponse(idVote: Int)
+  case class DeleteVoteRequest(idUser: Int, apiKey: String, idVote: Int) extends CredentialRequest
+  case class DeleteVoteResponse(response: String)
+  case class EditVoteRequest(idUser: Int, apiKey: String, idVote: Int, upvote: Boolean) extends CredentialRequest
+  case class EditVoteResponse(response: String)
 }

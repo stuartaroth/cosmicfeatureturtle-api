@@ -83,6 +83,36 @@ trait MyService extends HttpService {
             }
           }
         }
+      } ~ pathPrefix("vote") {
+        pathEndOrSingleSlash {
+          post {
+            complete("VOTE")
+          }
+        }  ~ pathPrefix("create") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[CreateVoteRequest]) { createVoteRequest =>
+                complete(Access.createVote(createVoteRequest))
+              }
+            }
+          }
+        } ~ pathPrefix("delete") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[DeleteVoteRequest]) { deleteVoteRequest =>
+                complete(Access.deleteVote(deleteVoteRequest))
+              }
+            }
+          }
+        } ~ pathPrefix("edit") {
+          pathEndOrSingleSlash {
+            post {
+              entity(as[EditVoteRequest]) { editVoteRequest =>
+                complete(Access.editVote(editVoteRequest))
+              }
+            }
+          }
+        }
       }
     }
 }

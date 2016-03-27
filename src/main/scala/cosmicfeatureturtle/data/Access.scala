@@ -62,7 +62,31 @@ object Access {
 
   def getFeature(idFeature: Int) : ToResponseMarshallable = {
     try {
-      Execute.getFeature(idFeature)
+      Execute.getFeatureById(idFeature)
+    } catch {
+      case e: Exception => ErrorMessage("Ehh")
+    }
+  }
+
+  def createVote(createVoteRequest: CreateVoteRequest): ToResponseMarshallable = {
+    try {
+      Execute.createVote(createVoteRequest)
+    } catch {
+      case e: Exception => ErrorMessage("Ehh")
+    }
+  }
+
+  def deleteVote(deleteVoteRequest: DeleteVoteRequest): ToResponseMarshallable = {
+    try {
+      Execute.deleteVote(deleteVoteRequest)
+    } catch {
+      case e: Exception => ErrorMessage("Ehh")
+    }
+  }
+
+  def editVote(editVoteRequest: EditVoteRequest): ToResponseMarshallable = {
+    try {
+      Execute.editVote(editVoteRequest)
     } catch {
       case e: Exception => ErrorMessage("Ehh")
     }

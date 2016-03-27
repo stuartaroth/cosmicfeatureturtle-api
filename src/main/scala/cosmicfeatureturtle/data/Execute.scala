@@ -2,7 +2,7 @@ package cosmicfeatureturtle.data
 
 import scalikejdbc.{AutoSession, ConnectionPool}
 import cosmicfeatureturtle.models.Models._
-import cosmicfeatureturtle.models.ResultImplicits._
+import cosmicfeatureturtle.models.DBResultExtensions._
 
 object Execute {
   Class.forName("com.mysql.jdbc.Driver")
@@ -66,10 +66,40 @@ object Execute {
     Queries.getFeatureSummaries(params.getOrElse("limit", "10").toInt, params.getOrElse("skip", "0").toInt).map(_.toFeatureSummary).list.apply
   }
 
-  def getFeature(idFeature: Int): Feature = {
+  def getFeatureById(idFeature: Int): Feature = {
     val comments = Queries.getFeatureCommentsById(idFeature).map(_.toFeatureComment).list.apply
     val votes = Queries.getFeatureVotesById(idFeature).map(_.toFeatureVote).list.apply
     val features = Queries.getFeatureById(idFeature).map(_.toFeature(comments, votes)).list.apply
     if(features.nonEmpty) features.head else throw new CosmicFeatureTurtleException("I am become death")
   }
+
+  def createVote(createVoteRequest: CreateVoteRequest): CreateVoteResponse = {
+    validateCredentialRequest(createVoteRequest)
+    val result = Queries.createVote(createVoteRequest).update.apply
+    if(result == 1) {
+      val votes = Queries.retrieveCreatedVote(createVoteRequest).map(_.toCreateVoteResponse).list.apply
+      if(votes.nonEmpty) votes.head else throw new CosmicFeatureTurtleException("E3a5h")
+    } else
+      throw new CosmicFeatureTurtleException("Something else")
+  }
+
+  def deleteVote(deleteVoteRequest: DeleteVoteRequest): DeleteVoteResponse = {
+    validateCredentialRequest(deleteVoteRequest)
+    val result = Queries.deleteVote(deleteVoteRequest).update.apply
+    if(result == 1)
+      DeleteVoteResponse(s"Vote ${deleteVoteRequest.idVote} was deleted.")
+    else
+      throw new CosmicFeatureTurtleException("Death")
+  }
+
+  def editVote(editVoteRequest: EditVoteRequest): EditVoteResponse = {
+    validateCredentialRequest(editVoteRequest)
+    val result = Queries.editVote(editVoteRequest).update.apply
+    if(result == 1)
+      EditVoteResponse(s"Vote ${editVoteRequest.idVote} was updated.")
+    else
+      throw new CosmicFeatureTurtleException("ddf")
+  }
+
+
 }
