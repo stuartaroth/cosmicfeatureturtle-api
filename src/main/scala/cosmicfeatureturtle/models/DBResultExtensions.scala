@@ -13,6 +13,8 @@ object DBResultExtensions {
 
     def toCreateFeatureResponse = CreateFeatureResponse(rs.int("id_feature"), rs.string("title"), rs.string("idea"))
 
+    def toFeatureForDeletion = FeatureForDeletion(rs.int("id_user"), rs.int("id_feature"))
+
     def toFeatureSummary = {
       FeatureSummary(
         User(rs.int("id_user"), rs.string("name")),

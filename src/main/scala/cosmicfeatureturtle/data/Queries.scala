@@ -63,13 +63,31 @@ object Queries {
         and idea = ${createFeatureRequest.idea}"""
   }
 
+  def retrieveFeatureForDeletion(deleteFeatureRequest: DeleteFeatureRequest) = {
+    sql"""
+      select
+        id_user,
+        id_feature
+      from feature
+      where id_user = ${deleteFeatureRequest.idUser}
+        and id_feature = ${deleteFeatureRequest.idFeature}"""
+  }
+
+  def deleteFeatureComments(deleteFeatureRequest: DeleteFeatureRequest) = {
+    sql"""
+      delete from comment
+      where id_feature = ${deleteFeatureRequest.idFeature}"""
+  }
+
+  def deleteFeatureVotes(deleteFeatureRequest: DeleteFeatureRequest) = {
+    sql"""
+      delete from vote
+      where id_feature = ${deleteFeatureRequest.idFeature}"""
+  }
+  
   def deleteFeature(deleteFeatureRequest: DeleteFeatureRequest) = {
     sql"""
-      update feature set
-        id_user = null,
-        title = null,
-        idea = null,
-        date_edited = now()
+      delete from feature
       where id_user = ${deleteFeatureRequest.idUser}
         and id_feature = ${deleteFeatureRequest.idFeature}"""
   }

@@ -13,6 +13,8 @@ object Models {
   case class FeatureVote(user: User, idVote: Int, upvote: Boolean)
   case class Feature(user: User, idFeature: Int, title: String, idea: String, comments: List[FeatureComment], votes: List[FeatureVote])
 
+  case class FeatureForDeletion(idUser: Int, idFeature: Int)
+
   case class ErrorMessage(error: String)
   case class CreateUserRequest(username: String, password: String, repassword: String)
   case class CreateUserResponse(idUser: Int, username: String, apiKey: String)

@@ -46,11 +46,15 @@ object Execute {
 
   def deleteFeature(deleteFeatureRequest: DeleteFeatureRequest): DeleteFeatureResponse = {
     validateCredentialRequest(deleteFeatureRequest)
-    val result = Queries.deleteFeature(deleteFeatureRequest).update.apply
-    if(result == 1)
+    val features = Queries.retrieveFeatureForDeletion(deleteFeatureRequest).map(_.toFeatureForDeletion).list.apply
+    val feature = if(features.nonEmpty) features.head else throw new CosmicFeatureTurtleException
+    val deleteCommentsResult = Queries.deleteFeatureComments(deleteFeatureRequest).update.apply
+    val deleteVotesResult = Queries.deleteFeatureVotes(deleteFeatureRequest).update.apply
+    val deleteFeatureResult = Queries.deleteFeature(deleteFeatureRequest).update.apply
+    if(deleteFeatureResult == 1)
       DeleteFeatureResponse(s"FeatureSummary ${deleteFeatureRequest.idFeature} was deleted.")
     else
-      throw new CosmicFeatureTurtleException("Something went wrong")
+      throw new CosmicFeatureTurtleException
   }
 
   def editFeature(editFeatureRequest: EditFeatureRequest): EditFeatureResponse = {
