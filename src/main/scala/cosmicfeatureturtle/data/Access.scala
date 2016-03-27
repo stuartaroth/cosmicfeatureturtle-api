@@ -13,8 +13,7 @@ object Access {
       Execute.createUser(createUserRequest)
     } catch {
       case e: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException => ErrorMessage("The username already exists.")
-      case e: CosmicFeatureTurtleException => ErrorMessage(e.message)
-      case e: Exception => ErrorMessage("Something went exceptionally wrong.")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -22,8 +21,7 @@ object Access {
     try {
       Execute.loginUser(loginUserRequest)
     } catch {
-      case e: CosmicFeatureTurtleException => ErrorMessage(e.message)
-      case e: Exception => ErrorMessage("Something went exceptionally wrong.")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -32,7 +30,7 @@ object Access {
       Execute.createFeature(createFeatureRequest)
     } catch {
       case e: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException => ErrorMessage("The user already has a feature with that title.")
-      case e: Exception => ErrorMessage("Something went exceptionally wrong.")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -40,7 +38,7 @@ object Access {
     try {
       Execute.deleteFeature(deleteFeatureRequest)
     } catch {
-      case e: Exception => ErrorMessage("Something went exceptionally wrong.")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -48,7 +46,7 @@ object Access {
     try {
       Execute.editFeature(editFeatureRequest)
     } catch {
-      case e: Exception => ErrorMessage("Something went exceptionally wrong.")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -56,7 +54,7 @@ object Access {
     try {
       Execute.getFeatureSummaries(params)
     } catch {
-      case e: Exception => ErrorMessage("Ehh")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -64,7 +62,7 @@ object Access {
     try {
       Execute.getFeatureById(idFeature)
     } catch {
-      case e: Exception => ErrorMessage("Ehh")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -72,7 +70,7 @@ object Access {
     try {
       Execute.createVote(createVoteRequest)
     } catch {
-      case e: Exception => ErrorMessage("Ehh")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -80,7 +78,7 @@ object Access {
     try {
       Execute.deleteVote(deleteVoteRequest)
     } catch {
-      case e: Exception => ErrorMessage("Ehh")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 
@@ -88,7 +86,7 @@ object Access {
     try {
       Execute.editVote(editVoteRequest)
     } catch {
-      case e: Exception => ErrorMessage("Ehh")
+      case e: Exception => ErrorMessage(e.getMessage)
     }
   }
 }

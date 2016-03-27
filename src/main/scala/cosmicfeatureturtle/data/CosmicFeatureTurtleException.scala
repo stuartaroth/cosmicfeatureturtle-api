@@ -1,3 +1,9 @@
 package cosmicfeatureturtle.data
 
-case class CosmicFeatureTurtleException(message: String) extends Exception(message)
+class CosmicFeatureTurtleException(m: String) extends Exception(m) {
+  val message = m
+
+  def this() {
+    this("An error occurred.")
+  }
+}

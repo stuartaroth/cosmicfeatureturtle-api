@@ -17,7 +17,7 @@ object Execute {
         if(users.nonEmpty) users.head else throw new CosmicFeatureTurtleException("There was a problem retrieving your user info.")
       }
       else
-        throw new CosmicFeatureTurtleException("Something went wrong")
+        throw new CosmicFeatureTurtleException
     } else {
       throw new CosmicFeatureTurtleException("Passwords do not match")
     }
@@ -39,9 +39,9 @@ object Execute {
     val result = Queries.createFeature(createFeatureRequest).update.apply
     if(result == 1) {
       val features = Queries.retrieveCreatedFeature(createFeatureRequest).map(_.toCreateFeatureResponse).list.apply
-      if(features.nonEmpty) features.head else throw new CosmicFeatureTurtleException("Ehhhhh")
+      if(features.nonEmpty) features.head else throw new CosmicFeatureTurtleException
     } else
-      throw new CosmicFeatureTurtleException("Something went wrong")
+      throw new CosmicFeatureTurtleException
   }
 
   def deleteFeature(deleteFeatureRequest: DeleteFeatureRequest): DeleteFeatureResponse = {
@@ -59,7 +59,7 @@ object Execute {
     if(result == 1)
       EditFeatureResponse(s"FeatureSummary ${editFeatureRequest.idFeature} was updated.")
     else
-      throw new CosmicFeatureTurtleException("Something went wrong")
+      throw new CosmicFeatureTurtleException
   }
 
   def getFeatureSummaries(params: Map[String, String]): List[FeatureSummary] = {
@@ -78,9 +78,9 @@ object Execute {
     val result = Queries.createVote(createVoteRequest).update.apply
     if(result == 1) {
       val votes = Queries.retrieveCreatedVote(createVoteRequest).map(_.toCreateVoteResponse).list.apply
-      if(votes.nonEmpty) votes.head else throw new CosmicFeatureTurtleException("E3a5h")
+      if(votes.nonEmpty) votes.head else throw new CosmicFeatureTurtleException
     } else
-      throw new CosmicFeatureTurtleException("Something else")
+      throw new CosmicFeatureTurtleException
   }
 
   def deleteVote(deleteVoteRequest: DeleteVoteRequest): DeleteVoteResponse = {
@@ -89,7 +89,7 @@ object Execute {
     if(result == 1)
       DeleteVoteResponse(s"Vote ${deleteVoteRequest.idVote} was deleted.")
     else
-      throw new CosmicFeatureTurtleException("Death")
+      throw new CosmicFeatureTurtleException
   }
 
   def editVote(editVoteRequest: EditVoteRequest): EditVoteResponse = {
@@ -98,8 +98,6 @@ object Execute {
     if(result == 1)
       EditVoteResponse(s"Vote ${editVoteRequest.idVote} was updated.")
     else
-      throw new CosmicFeatureTurtleException("ddf")
+      throw new CosmicFeatureTurtleException
   }
-
-
 }
